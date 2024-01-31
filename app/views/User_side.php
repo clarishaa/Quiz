@@ -25,6 +25,18 @@
             margin-bottom: 5px;
         }
     </style>
+    <style>
+    .correct-answer {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+    }
+
+    .incorrect-answer {
+        background-color: #f8d7da; 
+        border-color: #f5c6cb;
+    }
+</style>
+
 </head>
 <body>
 
@@ -69,26 +81,26 @@
 
 <script>
     function submitQuiz() {
-    var cards = document.querySelectorAll('.card');
-    var allCorrect = true;
+        var cards = document.querySelectorAll('.card');
+        var totalQuestions = cards.length;
+        var score = 0;
 
-    cards.forEach(function(card) {
-        var userAnswer = card.querySelector('input[type="text"]').value.trim();
-        var correctAnswer = card.querySelector('input[type="hidden"]').value.trim();
+        cards.forEach(function (card) {
+            var userAnswer = card.querySelector('input[type="text"]').value.trim();
+            var correctAnswer = card.querySelector('input[type="hidden"]').value.trim();
 
-        if (userAnswer.toLowerCase() !== correctAnswer.toLowerCase()) {
-            allCorrect = false;
-        }
-    });
+            if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                score++;
+                card.classList.add('correct-answer');
+            } else {
+                card.classList.add('incorrect-answer');
+            }
+        });
 
-    if (!allCorrect) {
-        alert('Some answers are incorrect. Please review your answers and try again.');
-        return false; 
-    } else {
-        alert('All answers are correct!');
-        return true; 
+        alert('Your score: ' + score + '/' + totalQuestions);
+
+        return true;
     }
-}
 </script>
 
 </body>

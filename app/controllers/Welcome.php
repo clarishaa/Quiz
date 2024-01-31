@@ -341,11 +341,12 @@ public function user_side() {
 			$quizResults = [];
 
 			foreach ($_POST['answers'] as $question_id => $user_answer) {
+				$question_id = (int)$question_id;
 				$correct_answer = $this->Quiz_model->get_correct_answer_by_question_id($question_id);
 
 				$is_correct = ($user_answer === $correct_answer) ? 'yes' : 'no';
 
-				$quizResults[] = [
+				$quizResults = [
 					'question' => $this->Quiz_model->get_question_text_by_id($question_id),
 					'user_answer' => $user_answer,
 					'correct_answer' => $correct_answer,
